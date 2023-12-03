@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 //---Day 1: Trebuchet ? !---
@@ -24,10 +25,42 @@ using System.Runtime.InteropServices;
 
 //Consider your entire calibration document. What is the sum of all of the calibration values?
 
-int totalCalibrationValue = 0;
-foreach(string s in File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "advent-of-code-1-input.txt"))
+
+
+string[] input = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "advent-of-code-1-input.txt");
+//Part 1
+
+int totalCalibrationValuePartOne = 0;
+foreach (string s in input)
 {
     char[] numbersInString = (from t in s where char.IsDigit(t) select t).ToArray();
-    totalCalibrationValue += Int16.Parse(numbersInString.First().ToString() + numbersInString.Last().ToString());
+    totalCalibrationValuePartOne += Int16.Parse(numbersInString.First().ToString() + numbersInString.Last().ToString());
 }
-Console.Write(totalCalibrationValue);
+Console.WriteLine(totalCalibrationValuePartOne);
+
+
+
+
+//Part 2
+int totalCalibrationValuePartTwo = 0;
+ foreach (string s in input)
+{
+    string convertedString = ConvertedStringToNumbers(s);
+    char[] numbersInString = (from t in convertedString where char.IsDigit(t) select t).ToArray();
+    totalCalibrationValuePartTwo += Int16.Parse(numbersInString.First().ToString() + numbersInString.Last().ToString());
+}
+Console.WriteLine(totalCalibrationValuePartTwo);
+
+
+string ConvertedStringToNumbers(string s)
+{
+    return s.Replace("one", "o1ne")
+        .Replace("two", "t2wo")
+        .Replace("three", "t3hree")
+        .Replace("four", "f4our")
+        .Replace("five", "f5ive")
+        .Replace("six", "s6ix")
+        .Replace("seven", "s7even")
+        .Replace("eight", "e8ight")
+        .Replace("nine", "n9ine");
+}
